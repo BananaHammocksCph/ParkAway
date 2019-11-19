@@ -1,9 +1,9 @@
 const express = require('express');
-const bookingRoutes = require('./routes/booking');
-const rideOfferRoutes = require("./routes/rideOffer");
+const userRoutes = require('./routes/user');
+const parkRoutes = require("./routes/park");
 const router = express.Router();
 
-router.use('/user', bookingRoutes);
-router.use('/park', rideOfferRoutes);
+router.use('/user', userRoutes);
+router.use('/park', parkRoutes);
 
 module.exports = router;

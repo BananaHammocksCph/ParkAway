@@ -1,4 +1,3 @@
-var mysql = require('./mysql');
 var mongo = require('./mongo/db');
 var Location = mongo.Location;
 var fs = require('fs');

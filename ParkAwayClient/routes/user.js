@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router(); // eslint-disable-line new-cap
+var mq_client = require('../rpc/client');
 
 router.post('/', function (req, res) {
   var msg_payload = {

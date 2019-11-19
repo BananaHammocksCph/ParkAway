@@ -9,7 +9,6 @@ var cnn = amqp.createConnection({
 });
 var mongoose = require('mongoose');
 var connection = mongoose.connect("mongodb://localhost:27017/park-away");
-var client = redis.createClient();
 
 cnn.on('ready', function () {
     console.log("listening on customer_queue");

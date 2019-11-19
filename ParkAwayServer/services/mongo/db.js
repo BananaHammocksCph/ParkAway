@@ -10,15 +10,15 @@ var location = new mongoose.Schema({
 		latitude: Number,
 		longitude: Number
 	}
-});
+}, {collection: 'location'});
 
 var user = new mongoose.Schema({
 	name: String,
-	location: Location
-});
+	location: location
+}, {collection: 'user'});
 
-location = mongoose.model('location', location);
-user = mongoose.model('user', user);
+location = mongoose.model('location', location, 'location');
+user = mongoose.model('user', user, 'location');
 
 function getDistanceFromLatLonInKm(latitude1, longitude1, latitude2, longitude2) {
 	var p = 0.017453292519943295;    //This is  Math.PI / 180
