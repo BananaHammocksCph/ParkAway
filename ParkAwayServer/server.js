@@ -8,7 +8,7 @@ var cnn = amqp.createConnection({
     host: '127.0.0.1'
 });
 var mongoose = require('mongoose');
-var connection = mongoose.connect("mongodb://localhost:27017/uber_db");
+var connection = mongoose.connect("mongodb://localhost:27017/park-away");
 var client = redis.createClient();
 
 cnn.on('ready', function () {
