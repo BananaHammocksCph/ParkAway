@@ -11,14 +11,14 @@ var mongoose = require('mongoose');
 var connection = mongoose.connect("mongodb://localhost:27017/park-away");
 
 cnn.on('ready', function () {
-    console.log("listening on customer_queue");
+    console.log("listening on user_queue");
 
     cnn.queue('user_queue', function (q) {
         q.subscribe(function (message, headers, deliveryInfo, m) {
             util.log(util.format(deliveryInfo.routingKey, message));
             util.log("Message: " + JSON.stringify(message));
             util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
-            park.handleRequest(message, function (err, res) {
+            user.handleRequest(message, function (err, res) {
                 console.log("Listening customer_queue" + message);
                 //return index sent
                 cnn.publish(m.replyTo, res, {
@@ -37,7 +37,7 @@ cnn.on('ready', function () {
             util.log(util.format(deliveryInfo.routingKey, message));
             util.log("Message: " + JSON.stringify(message));
             util.log("DeliveryInfo: " + JSON.stringify(deliveryInfo));
-            directions.handleRequest(message, function (err, res) {
+            park.handleRequest(message, function (err, res) {
                 console.log("Listening driver_queue" + message);
                 //return index sent
                 cnn.publish(m.replyTo, res, {

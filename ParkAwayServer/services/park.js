@@ -20,3 +20,5 @@ function park(msg, callback) {
 function directions(msg, callback) {
 
 }
+
+exports.handleRequest=handleRequest;

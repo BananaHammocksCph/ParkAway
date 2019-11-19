@@ -1,10 +1,8 @@
-var mongo = require('./mongo/db');
-var Location = mongo.Location;
-var fs = require('fs');
-
+var db = require('./mongo/db');
 
 function handleRequest(msg, callback) {
 
+    console.log(msg);
     switch (msg.type) {
         case "create":
             create(msg, callback);
@@ -14,13 +12,12 @@ function handleRequest(msg, callback) {
 }
 
 function create(msg, callback) {
-    var db = require('../db');
-    var User = db.Mongoose.model('user', db.User, 'user');
-    var user = User.create({
-        name: msg.name
-    })
-    .lean()
-    .exec(function(err, docs) {
+    var response;
+    var User = db.Mongoose.model('user', db.UserSchema, 'user')
+    var newUser = new User({name: msg.name});
+    
+    newUser.save(function(err) {
+        console.log('Create Hit!');
         if(err) {
             response =({
                 status:500, 
@@ -29,15 +26,17 @@ function create(msg, callback) {
 			callback(null, response);
         }
         
-        response =({
+        response = ({
             status:200,
-            availability_flag, message: "User Created.",
-            user_id: user._id
+            message: "User Created.",
+            user_id: newUser._id
         });
-        callback(null, response);      
-      });
+        callback(null, response);
+    });
 }
 
 function getAll(msg, callback) {
 
 }
+
+exports.handleRequest=handleRequest;

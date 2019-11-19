@@ -8,6 +8,8 @@ router.post('/', function (req, res) {
     "type": "create"
   };
 
+  console.log(msg_payload);
+
   mq_client.make_request('user_queue', msg_payload, function (err, results) {
 
     if (err) {
