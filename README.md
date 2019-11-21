@@ -2,9 +2,7 @@
 SI Messaging Project
 
 ## Instructions for running the project
-Run rabbit mq, either locally or in a container.
-
-Run mongodb, either locally or in a container, and create a database called park-away.
+Run rabbit mq, either locally or on container.
 
 Run both node applications in separate consoles with `node start app.js` and `node start server.js`
 

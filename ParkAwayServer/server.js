@@ -8,7 +8,9 @@ var cnn = amqp.createConnection({
     host: '127.0.0.1'
 });
 var mongoose = require('mongoose');
-var connection = mongoose.connect("mongodb://localhost:27017/park-away");
+var connection = mongoose.connect(
+  "mongodb://admin:password@127.0.0.1:27017/park-away"
+);
 
 cnn.on('ready', function () {
     console.log("listening on user_queue");

@@ -1,18 +1,24 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 mongoose.createConnection('mongodb://localhost:27017/park-away');
 
-var locationSchema = new mongoose.Schema({
-	user_id: String,
-	coordinates: {
-		latitude: Number,
-		longitude: Number
-	}
+var userSchema = new mongoose.Schema({
+  name: String,
+  location: { type: Schema.Types.ObjectId, ref: "Location" }
 });
 
-var userSchema = new mongoose.Schema({
-	name: String,
-	location: locationSchema
+module.exports = mongoose.model("User", userSchema);
+
+var locationSchema = new mongoose.Schema({
+  coordinates: {
+    latitude: Number,
+    longitude: Number
+  },
+  user: { type: Schema.Types.ObjectId, ref: "User" }
 });
+
+module.exports = mongoose.model("Location", locationSchema);
 
 function getDistanceFromLatLonInKm(latitude1, longitude1, latitude2, longitude2) {
 	var p = 0.017453292519943295;    //This is  Math.PI / 180
