@@ -12,14 +12,14 @@ router.post("/", function(req, res) {
 
   console.log(msg_payload);
 
-  mq_client.make_request("user_queue", msg_payload, function(err, results) {
+  mq_client.make_request("park_queue", msg_payload, function(err, results) {
     if (err) {
       console.log(err);
       res.send(err);
     } else {
       if (results.status == 200) {
         console.log(results.result);
-        res.status(200).send("success");
+        res.status(200).json(results);
       } else {
         console.log("Something went wrong");
         res.status(500).send("Something went wrong");
@@ -45,7 +45,7 @@ router.post("/direction", function(req, res) {
       if (results.status == 200) {
         console.log(results.result);
 
-          res.status(200).send(JSON.stringify(results));
+          res.status(200).json(results);
       } else {
         console.log("Something went wrong");
         res.status(500).send("Something went wrong");

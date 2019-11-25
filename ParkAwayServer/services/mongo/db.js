@@ -15,8 +15,6 @@ var userSchema = new mongoose.Schema({
   location: { type: Schema.Types.ObjectId, ref: "location" }
 });
 
-// module.exports = mongoose.model("User", userSchema);
-
 var locationSchema = new mongoose.Schema({
   coordinates: {
     latitude: Number,
@@ -24,8 +22,6 @@ var locationSchema = new mongoose.Schema({
   },
   user: { type: Schema.Types.ObjectId, ref: "user" }
 });
-
-// module.exports = mongoose.model("Location", locationSchema);
 
 function getDistanceFromLatLonInKm(latitude1, longitude1, latitude2, longitude2) {
 	var p = 0.017453292519943295;    //This is  Math.PI / 180
