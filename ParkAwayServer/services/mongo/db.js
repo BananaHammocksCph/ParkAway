@@ -1,24 +1,31 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-mongoose.createConnection('mongodb://localhost:27017/park-away');
+mongoose.connect('mongodb://localhost:27017/park-away', {
+	auth: {authSource: "admin"},
+	user: "admin",
+	pass: "password",
+	useNewUrlParser: true,
+	keepAlive: true,
+	keepAliveInitialDelay: 300000
+});
 
 var userSchema = new mongoose.Schema({
   name: String,
-  location: { type: Schema.Types.ObjectId, ref: "Location" }
+  location: { type: Schema.Types.ObjectId, ref: "location" }
 });
 
-module.exports = mongoose.model("User", userSchema);
+// module.exports = mongoose.model("User", userSchema);
 
 var locationSchema = new mongoose.Schema({
   coordinates: {
     latitude: Number,
     longitude: Number
   },
-  user: { type: Schema.Types.ObjectId, ref: "User" }
+  user: { type: Schema.Types.ObjectId, ref: "user" }
 });
 
-module.exports = mongoose.model("Location", locationSchema);
+// module.exports = mongoose.model("Location", locationSchema);
 
 function getDistanceFromLatLonInKm(latitude1, longitude1, latitude2, longitude2) {
 	var p = 0.017453292519943295;    //This is  Math.PI / 180
@@ -31,5 +38,5 @@ function getDistanceFromLatLonInKm(latitude1, longitude1, latitude2, longitude2)
 	return dist;
 }
 
-module.exports = { Mongoose: mongoose, LocationSchema: locationSchema , UserSchema: userSchema, getDistanceFromLatLonInKm }
+module.exports = { Connection: mongoose.connection, Mongoose: mongoose, LocationSchema: locationSchema , UserSchema: userSchema, getDistanceFromLatLonInKm }
 
