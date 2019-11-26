@@ -38,7 +38,8 @@ function park(msg, callback) {
       response = {
         status: 200,
         message: "Park Success.",
-        location_id: newLocation._id
+        location_id: newLocation._id,
+        image: newLocation.image
       };
       callback(null, response);
     });
@@ -75,7 +76,12 @@ function direction(msg, callback) {
       response = {
         status: 200,
         message: "Direction Success.",
-        distance: calcDistance
+        distance: calcDistance,
+        coordinates: {
+          latitude: doc.latitude,
+          longitude: doc.longitude
+        },
+        image: doc.image
       };
       callback(null, response);
     });
