@@ -40,24 +40,29 @@ function create(msg, callback) {
 function getAll(msg, callback) {
   let response;
   let User = db.Mongoose.model("user", db.UserSchema, "user");
-  
-  User.find(function(err, users) {
-    // console.log('Get All Hit!');
-    if (err) {
+  let Location = db.Mongoose.model("location", db.LocationSchema, "location");
+  User.find()
+    .populate({
+      path: "location",
+      model: Location
+    })
+    .exec(function(err, users) {
+      // console.log('Get All Hit!');
+      if (err) {
+        response = {
+          status: 500,
+          message: "Server Error"
+        };
+        callback(null, response);
+      }
+
       response = {
-        status: 500,
-        message: "Server Error"
+        status: 200,
+        message: "Users Found.",
+        users: users
       };
       callback(null, response);
-    }
-    
-    response = {
-      status: 200,
-      message: "Users Found.",
-      users: users
-    };
-    callback(null, response);
-  });
+    });
 }
 
 exports.handleRequest=handleRequest;
