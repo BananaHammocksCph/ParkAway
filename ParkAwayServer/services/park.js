@@ -14,12 +14,14 @@ function handleRequest(msg, callback) {
 // Updates the User with a location object ( _id: xxx, {coordinates: {lat: xxx,  lon:xxx} })
 // POST     api/user/park
 // @RETURNS n/a
-// Example POSTMAN input : { "coordinates": {"latitude": 22, "longitude": 22 }, "user_id": "5dd5eb668051f22040d20608" }
+// Example POSTMAN input : { "coordinates": {"latitude": 22, "longitude": 22 }, image: [127, 13, 4], "user_id": "5dd5eb668051f22040d20608" }
 function park(msg, callback) {
   let response;
   let Location = db.Mongoose.model("location", db.LocationSchema, "location");
-  let newLocation = new Location({ coordinates: msg.coordinates, user: msg.user_id });
+  let newLocation = new Location({ coordinates: msg.coordinates, image: msg.image, user: msg.user_id });
   
+  console.log(msg.image);
+
   newLocation.save(function(err, doc) {
     // console.log("Park Hit!");
     let User = db.Mongoose.model("user", db.UserSchema, "user");

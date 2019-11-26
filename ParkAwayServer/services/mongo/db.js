@@ -6,6 +6,7 @@ mongoose.connect('mongodb://localhost:27017/park-away', {
 	user: "admin",
 	pass: "password",
 	useNewUrlParser: true,
+	useUnifiedTopology: true,
 	keepAlive: true,
 	keepAliveInitialDelay: 300000
 });
@@ -20,6 +21,7 @@ var locationSchema = new mongoose.Schema({
     latitude: Number,
     longitude: Number
   },
+  image: Buffer,
   user: { type: Schema.Types.ObjectId, ref: "user" }
 });
 

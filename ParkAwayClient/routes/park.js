@@ -7,6 +7,7 @@ router.post("/", function(req, res) {
   let msg_payload = {
     user_id: req.body.user_id,
     coordinates: req.body.coordinates,
+    image: req.body.image,
     type: "park"
   };
 
